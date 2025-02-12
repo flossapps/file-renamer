@@ -124,6 +124,9 @@ class MainWindow(QMainWindow):
             <p><strong>GitHub</strong><br>
                 https://github.com/flossapps/file-renamer
             </p>
+            <p><strong>Python Package Index (PyPI)</strong><br>
+                https://pypi.org/project/io.github.flossapps.file-renamer/
+            </p>
         </div>"""
         self.fr['html_title'] = title
         self.fr['html_body'] = body

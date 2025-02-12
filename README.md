@@ -5,7 +5,7 @@ It's Free, Libre, Open Source Software (FLOSS).
 ## Locations
 
 1. [Github](https://github.com/flossapps/file-renamer/)
-
+1. [PyPI](https://pypi.org/project/io.github.flossapps.file-renamer/)
 
 ## Screenshots
 
