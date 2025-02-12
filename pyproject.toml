@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools ~= 75.5.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "io.github.flossapps.file-renamer"
+authors = [{name = "Carlos"}]
+description = "A desktop app for Linux and Windows for batch renaming files."
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = [
+    "app", "gui", "rename", "rename-files", "batch-rename-files", "renamer",
+    "linux-desktop", "ubuntu", "fedora", "windows-desktop", "pyside6",
+    "qt-creator"
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Utilities",
+    "Programming Language :: Python",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Desktop Environment :: Gnome",
+    "Topic :: Desktop Environment :: K Desktop Environment (KDE)",
+    "Operating System :: Microsoft :: Windows :: Windows 11",
+]
+dependencies = [
+    "PySide6~=6.8.2",
+    "PySide6-Addons~=6.8.2",
+    "PySide6-Essentials~=6.8.2",
+    "shiboken6~=6.8.2",
+    "Unidecode~=1.3.8"
+]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "file_renamer.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+file-renamer = "file_renamer.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/flossapps/file-renamer"
+Repository = "https://github.com/flossapps/file-renamer.git"

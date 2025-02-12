@@ -1,0 +1,10 @@
+# Misc
+.flatpak-builder/
+.idea/
+__pycache__/
+build/
+deploy/
+dist/
+io.github.flossapps.file_renamer.egg-info/
+file-renamer.pyproject
+file-renamer.pyproject.user

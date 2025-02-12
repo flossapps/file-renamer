@@ -1,0 +1,17 @@
+[Desktop Entry]
+Categories=Utility;
+Comment[en_US]=Rename files using a GUI desktop app for Linux & Windows
+GenericName[en_US]=File Renamer
+
+# Update path
+Exec=file-renamer
+Icon=file-renamer
+
+MimeType=
+Name[en_US]=File Renamer
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
