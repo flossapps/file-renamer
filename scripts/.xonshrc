@@ -1,0 +1,46 @@
+"""
+XONSH is a Python-powered shell
+https://xon.sh/
+https://github.com/xonsh/xonsh
+File location: $HOME/.xonshrc
+"""
+
+# XONSH WEBCONFIG START
+$XONSH_COLOR_STYLE = 'default'
+# XONSH WEBCONFIG END
+
+import os
+import sys
+import platform
+from pathlib import Path
+
+$XONSH_SHOW_TRACEBACK = True
+$XONSH_TRACEBACK_LOGFILE = os.path.expanduser('~') + "/xonsh.log"
+$RAISE_SUBPROC_ERROR = True
+
+$BACKUP = "/data"
+$VIRTUALENV_HOME = $BACKUP + "/fr/vox"
+$FR_PATH = $BACKUP + "/fr/file-renamer"
+# $PYTHONPATH = $FR_PATH + "/src"
+
+def frve():
+    os = platform.system()
+    if os == "Linux":
+        try:
+            cd $FR_PATH
+        except NotADirectoryError as err:
+            print(f"Unexpected {err=}, {type(err)=}")
+        else:
+            print('Linux')
+            xontrib load vox  # Load vox
+            vox activate dev  # Activate virtual environment
+    elif os == "Windows":
+        try:
+            cd "C:\\Users\\Me\\fr\\file-renamer"
+        except NotADirectoryError as err:
+            print(f"Unexpected {err=}, {type(err)=}")
+        else:
+            print('Windows')
+
+
+frve()
