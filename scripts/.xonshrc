@@ -18,29 +18,32 @@ $XONSH_SHOW_TRACEBACK = True
 $XONSH_TRACEBACK_LOGFILE = os.path.expanduser('~') + "/xonsh.log"
 $RAISE_SUBPROC_ERROR = True
 
-$BACKUP = "/data"
-$VIRTUALENV_HOME = $BACKUP + "/fr/vox"
-$FR_PATH = $BACKUP + "/fr/file-renamer"
-# $PYTHONPATH = $FR_PATH + "/src"
+$platform = platform.system()
+$fr_path = '/fr/file-renamer'
+
+if $platform == "Windows":
+    $pc_path = 'C:\\Users\\Me'
+else:
+    $pc_path = '/data'
+
+$project_path = $pc_path + $fr_path
+$vox_path = $pc_path + "/fr/vox"
+$VIRTUALENV_HOME = Path($vox_path)
+$py_path = $pc_path + $fr_path + "/src"
+# $PYTHONPATH = Path($py_path)
 
 def frve():
-    os = platform.system()
-    if os == "Linux":
-        try:
-            cd $FR_PATH
-        except NotADirectoryError as err:
-            print(f"Unexpected {err=}, {type(err)=}")
-        else:
-            print('Linux')
-            xontrib load vox  # Load vox
-            vox activate dev  # Activate virtual environment
-    elif os == "Windows":
-        try:
-            cd "C:\\Users\\Me\\fr\\file-renamer"
-        except NotADirectoryError as err:
-            print(f"Unexpected {err=}, {type(err)=}")
-        else:
-            print('Windows')
-
+    try:
+        if os.path.exists($project_path) is False:
+           raise NotADirectoryError()
+    except NotADirectoryError:
+        print('PATH NOT FOUND: ', $project_path)
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+    else:
+        cd $project_path
+        print($platform)
+        xontrib load vox  # Load vox
+        vox activate dev  # Activate virtual environment
 
 frve()
