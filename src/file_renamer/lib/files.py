@@ -11,7 +11,6 @@ https://www.gnu.org/licenses/gpl-3.0.html
 """
 
 import logging
-logger = logging.getLogger(__name__)
 import os
 import re
 import inspect
@@ -21,6 +20,8 @@ from abc import ABC, abstractmethod
 from PySide6.QtCore import Slot
 from file_renamer.lib.exceptions import Messages
 from file_renamer.lib.case import CaseSensitive
+
+logger = logging.getLogger(__name__)
 
 
 class File(ABC):

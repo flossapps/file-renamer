@@ -11,11 +11,12 @@ https://www.gnu.org/licenses/gpl-3.0.html
 """
 
 import logging
-logger = logging.getLogger(__name__)
 import inspect
 from PySide6.QtWidgets import (
     QMainWindow, QMessageBox
 )
+
+logger = logging.getLogger(__name__)
 
 
 class Messages(QMainWindow):

@@ -11,10 +11,11 @@ https://www.gnu.org/licenses/gpl-3.0.html
 """
 
 import logging
-logger = logging.getLogger(__name__)
 import inspect
 from abc import ABC, abstractmethod
 import file_renamer.html.rc_ui
+
+logger = logging.getLogger(__name__)
 
 
 class UI(ABC):

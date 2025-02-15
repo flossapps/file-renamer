@@ -10,9 +10,8 @@ GNU General Public License
 https://www.gnu.org/licenses/gpl-3.0.html
 """
 
-import logging
-logger = logging.getLogger(__name__)
 import sys
+import logging
 import os
 import platform
 import inspect
@@ -21,6 +20,8 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QDir, QFile, QFileInfo, QIODevice, QTextStream
 from file_renamer.gui import MainWindow
 from file_renamer.__version__ import __version__
+
+logger = logging.getLogger(__name__)
 
 
 def main(**fr):

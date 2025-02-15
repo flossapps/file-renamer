@@ -11,13 +11,14 @@ https://www.gnu.org/licenses/gpl-3.0.html
 """
 
 import logging
-logger = logging.getLogger(__name__)
 import os
 import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QWidget, QFileDialog
 from file_renamer.rename import Rename
 from file_renamer.ui_form import Ui_Widget
+
+logger = logging.getLogger(__name__)
 
 
 class Widget(QWidget):

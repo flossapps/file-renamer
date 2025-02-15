@@ -10,9 +10,8 @@ GNU General Public License
 https://www.gnu.org/licenses/gpl-3.0.html
 """
 
-import logging
-logger = logging.getLogger(__name__)
 import sys
+import logging
 import inspect
 import PySide6.QtCore
 from PySide6.QtCore import (Slot, QDir)
@@ -23,6 +22,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
+
+logger = logging.getLogger(__name__)
 
 
 class MainWindow(QMainWindow):

@@ -11,13 +11,14 @@ https://www.gnu.org/licenses/gpl-3.0.html
 """
 
 import logging
-logger = logging.getLogger(__name__)
 import re
 import unidecode
 import inspect
 from pathlib import Path
 from file_renamer.lib.files import Files
 from file_renamer.lib.exceptions import Messages
+
+logger = logging.getLogger(__name__)
 
 
 class Rename:

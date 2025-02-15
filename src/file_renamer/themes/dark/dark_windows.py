@@ -11,9 +11,10 @@ https://www.gnu.org/licenses/gpl-3.0.html
 """
 
 import logging
-logger = logging.getLogger(__name__)
 import inspect
 from file_renamer.themes.theme import Theme
+
+logger = logging.getLogger(__name__)
 
 
 class DarkWindows(Theme):
