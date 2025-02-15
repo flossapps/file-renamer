@@ -96,6 +96,10 @@ class MainWindow(QMainWindow):
             html_icon, 'Bootstrap', self, triggered=self.show_bootstrap
         )
         about_menu.addAction(bootstrap_action)
+        xonsh_action = QAction(
+            html_icon, 'XONSH', self, triggered=self.show_xonsh
+        )
+        about_menu.addAction(xonsh_action)
 
     def show_widget(self):
         if not self.dir_output:
@@ -229,7 +233,8 @@ class MainWindow(QMainWindow):
                 </ul>
             </div>
 
-            <p>Python is an interpreted, interactive, object-oriented programming language.</p>
+            <p>Python is an interpreted, interactive, object-oriented
+ programming language.</p>
 
             <p><strong>Python</strong><br>
             https://www.python.org</p>
@@ -318,4 +323,36 @@ class MainWindow(QMainWindow):
         self.fr['html_title'] = title
         self.fr['html_body'] = body
         self.fr['page-id'] = 'bootstrap'
+        self.render_html()
+
+    @Slot()
+    def show_xonsh(self):
+        title = "XONSH"
+        version = "0.19.1"
+        body = """
+        <div class="container">
+            <h1>XONSH</h1>
+
+            <div class="p-3 text-primary-emphasis bg-primary-subtle \
+                border border-primary-subtle rounded-3">
+                Version
+                <ul>
+                    <li>
+                        <strong>XONSH</strong>&nbsp;&nbsp;""" \
+                        + version + """
+                    </li>
+                </ul>
+            </div>
+
+            <p>XONSH is a Python-powered shell</p>
+
+            <p><strong>XONSH</strong><br>
+            https://xon.sh/</p>
+
+            <p><strong>Docs</strong><br>
+            https://xon.sh/contents.html</p>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'xonsh'
         self.render_html()
