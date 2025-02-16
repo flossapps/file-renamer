@@ -36,6 +36,7 @@ class Widget(QWidget):
 
     def open_dir(self):
         dir_name = QFileDialog.getExistingDirectory(self, "Select a Directory")
+        # logger.info('dir_name: %s', dir_name)
         if dir_name:
             self.fr["path"] = Path(dir_name)
             self.fr["ui"].dir_txt.setText(str(self.fr["path"]))
@@ -76,14 +77,30 @@ class Widget(QWidget):
             self.rename.search_replace(**self.fr)
 
     def find(self):
-        self.fr["title"] = "Search & Replace"
-        if self.fr["title"] != self.fr["ui"].comboBox.currentText():
-            self.fr["ui"].comboBox.setCurrentIndex(0)
-            self.fr["ui"].comboBox.setCurrentText('PREVIEW')
-        if len(self.fr["ui"].search.displayText()):
-            self.rename.search_replace(**self.fr)
+        if self.fr["ui"].dir_txt.displayText():
+            dir_name = self.fr["ui"].dir_txt.displayText()
         else:
-            self.fr["ui"].search.setFocus()
+            dir_name = os.path.expanduser('~')
+            self.fr["ui"].dir_txt.setText(dir_name)
+        combo_text = self.fr["ui"].comboBox.currentText()
+        # logger.info('combo_text: %s', combo_text)
+        if len(self.rename.files.filelist) < 1:
+            self.fr["ui"].comboBox.setCurrentIndex(0)
+            self.fr["ui"].comboBox.setCurrentText('Select')
+            self.rename.list_files(**self.fr)
+        else:
+            if combo_text == "Select":
+                if len(self.fr["ui"].search.displayText()) < 1:
+                    # self.fr["ui"].search.setFocus()
+                    self.rename.list_files(**self.fr)
+                else:
+                    self.fr["title"] = "Search & Replace"
+                    self.rename.search_replace(**self.fr)
+            else:
+                self.fr["title"] = "Search & Replace"
+                # logger.info('self.fr: %s', self.fr)
+                self.rename.search_replace(**self.fr)
+
 
     def regex(self):
         self.search_replace()

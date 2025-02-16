@@ -17,6 +17,7 @@ import inspect
 import os.path
 from pathlib import Path
 from abc import ABC, abstractmethod
+from PySide6.QtWidgets import QWidget, QLineEdit
 from PySide6.QtCore import Slot
 from file_renamer.lib.exceptions import Messages
 from file_renamer.lib.case import CaseSensitive
@@ -92,9 +93,10 @@ class Files(File):
             )
         self.fr["title"] = "LIST FILES"
         self.print_title(**fr)
+        filter = self.fr["ui"].filter_txt.text()
         try:
             if self.fr["ui"].recursively.isChecked():
-                for file in Path(fr["path"]).rglob('*'):
+                for file in Path(fr["path"]).rglob(filter):
                     if os.path.isfile(file):
                         if count < self.limit:
                             self.filelist.append(file)
@@ -106,7 +108,7 @@ class Files(File):
                         else:
                             raise Exception()
             else:
-                for file in Path(fr["path"]).iterdir():
+                for file in Path(fr["path"]).glob(filter):
                     if os.path.isfile(file):
                         if count < self.limit:
                             self.filelist.append(file)
