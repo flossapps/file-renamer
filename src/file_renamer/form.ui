@@ -70,28 +70,90 @@
    </item>
    <item row="3" column="0">
     <widget class="QGroupBox" name="options">
+     <property name="minimumSize">
+      <size>
+       <width>788</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="title">
       <string/>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
        <widget class="QCheckBox" name="recursively">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
-         <string>Add Files Recursively</string>
+         <string>Recursively</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="id">
-        <property name="text">
-         <string>Keep ID</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
+      <item>
        <widget class="QCheckBox" name="extension">
+        <property name="toolTip">
+         <string/>
+        </property>
         <property name="text">
-         <string>Keep Extension</string>
+         <string>Extension</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="path">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Path</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="id">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>ID</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="sort">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LayoutDirection::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Sort</string>
         </property>
        </widget>
       </item>
@@ -275,8 +337,8 @@
    <slot>open_dir()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>39</y>
+     <x>457</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
      <x>-3</x>
@@ -291,12 +353,12 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>40</y>
+     <x>463</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
-     <x>216</x>
-     <y>45</y>
+     <x>686</x>
+     <y>78</y>
     </hint>
    </hints>
   </connection>
@@ -387,8 +449,8 @@
    <slot>keep_ext()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>778</x>
-     <y>460</y>
+     <x>287</x>
+     <y>465</y>
     </hint>
     <hint type="destinationlabel">
      <x>794</x>
@@ -428,6 +490,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>sort</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>sort()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>731</x>
+     <y>455</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>801</x>
+     <y>427</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>path</sender>
+   <signal>clicked()</signal>
+   <receiver>Widget</receiver>
+   <slot>path()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>408</x>
+     <y>451</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>797</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open_dir()</slot>
@@ -440,5 +534,7 @@
   <slot>regex()</slot>
   <slot>find()</slot>
   <slot>clear()</slot>
+  <slot>sort()</slot>
+  <slot>path()</slot>
  </slots>
 </ui>

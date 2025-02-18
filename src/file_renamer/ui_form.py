@@ -1,14 +1,12 @@
-"""
-File Renamer
-https://github.com/flossapps/file-renamer
+# -*- coding: utf-8 -*-
 
-A desktop app for Linux and Windows for batch renaming files.
-It's Free, Libre, Open Source Software (FLOSS).
-
-Copyright (C) 2024 Carlos
-GNU General Public License
-https://www.gnu.org/licenses/gpl-3.0.html
-"""
+################################################################################
+## Form generated from reading UI file 'form.ui'
+##
+## Created by: Qt User Interface Compiler version 6.8.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -70,22 +68,46 @@ class Ui_Widget(object):
 
         self.options = QGroupBox(Widget)
         self.options.setObjectName(u"options")
-        self.gridLayout_4 = QGridLayout(self.options)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.options.setMinimumSize(QSize(788, 0))
+        self.options.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.horizontalLayout_2 = QHBoxLayout(self.options)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.recursively = QCheckBox(self.options)
         self.recursively.setObjectName(u"recursively")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.recursively.sizePolicy().hasHeightForWidth())
+        self.recursively.setSizePolicy(sizePolicy)
 
-        self.gridLayout_4.addWidget(self.recursively, 0, 0, 1, 1)
-
-        self.id = QCheckBox(self.options)
-        self.id.setObjectName(u"id")
-
-        self.gridLayout_4.addWidget(self.id, 0, 1, 1, 1)
+        self.horizontalLayout_2.addWidget(self.recursively)
 
         self.extension = QCheckBox(self.options)
         self.extension.setObjectName(u"extension")
 
-        self.gridLayout_4.addWidget(self.extension, 0, 2, 1, 1)
+        self.horizontalLayout_2.addWidget(self.extension)
+
+        self.path = QCheckBox(self.options)
+        self.path.setObjectName(u"path")
+        self.path.setMinimumSize(QSize(160, 0))
+
+        self.horizontalLayout_2.addWidget(self.path)
+
+        self.id = QCheckBox(self.options)
+        self.id.setObjectName(u"id")
+        self.id.setMinimumSize(QSize(160, 0))
+
+        self.horizontalLayout_2.addWidget(self.id)
+
+        self.sort = QCheckBox(self.options)
+        self.sort.setObjectName(u"sort")
+        self.sort.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.sort.sizePolicy().hasHeightForWidth())
+        self.sort.setSizePolicy(sizePolicy)
+        self.sort.setMinimumSize(QSize(160, 0))
+        self.sort.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+
+        self.horizontalLayout_2.addWidget(self.sort)
 
 
         self.gridLayout.addWidget(self.options, 3, 0, 1, 1)
@@ -191,6 +213,8 @@ class Ui_Widget(object):
         self.extension.clicked.connect(Widget.keep_ext)
         self.regex.clicked.connect(Widget.regex)
         self.find_btn.clicked.connect(Widget.find)
+        self.sort.clicked.connect(Widget.sort)
+        self.path.clicked.connect(Widget.path)
 
         QMetaObject.connectSlotsByName(Widget)
     # setupUi
@@ -203,9 +227,14 @@ class Ui_Widget(object):
         self.filter_txt.setText(QCoreApplication.translate("Widget", u"*", None))
         self.dir_btn.setText(QCoreApplication.translate("Widget", u"Browse", None))
         self.options.setTitle("")
-        self.recursively.setText(QCoreApplication.translate("Widget", u"Add Files Recursively", None))
-        self.id.setText(QCoreApplication.translate("Widget", u"Keep ID", None))
-        self.extension.setText(QCoreApplication.translate("Widget", u"Keep Extension", None))
+        self.recursively.setText(QCoreApplication.translate("Widget", u"Recursively", None))
+#if QT_CONFIG(tooltip)
+        self.extension.setToolTip("")
+#endif // QT_CONFIG(tooltip)
+        self.extension.setText(QCoreApplication.translate("Widget", u"Extension", None))
+        self.path.setText(QCoreApplication.translate("Widget", u"Path", None))
+        self.id.setText(QCoreApplication.translate("Widget", u"ID", None))
+        self.sort.setText(QCoreApplication.translate("Widget", u"Sort", None))
         self.groupBox.setTitle("")
         self.comboBox.setItemText(0, QCoreApplication.translate("Widget", u"Select", None))
         self.comboBox.setItemText(1, QCoreApplication.translate("Widget", u"Remove Non-Alphanum Chars", None))

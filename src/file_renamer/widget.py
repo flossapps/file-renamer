@@ -16,6 +16,7 @@ import inspect
 from pathlib import Path
 from PySide6.QtWidgets import QWidget, QFileDialog
 from file_renamer.rename import Rename
+from file_renamer.lib.files import Files
 from file_renamer.ui_form import Ui_Widget
 
 logger = logging.getLogger(__name__)
@@ -41,10 +42,12 @@ class Widget(QWidget):
             self.fr["path"] = Path(dir_name)
             self.fr["ui"].dir_txt.setText(str(self.fr["path"]))
             self.fr["ui"].label.setText('LIST FILES')
+            self.fr["ui"].sort.setChecked(False)
             self.rename.list_files(**self.fr)
 
     def add_recursively(self):
         dir_name = ""
+        self.fr["ui"].sort.setChecked(False)
         if self.fr["ui"].comboBox.currentIndex() > 0:
             self.fr["ui"].comboBox.setCurrentIndex(0)
             self.fr["ui"].comboBox.setCurrentText('PREVIEW')
@@ -71,17 +74,37 @@ class Widget(QWidget):
         else:
             self.index_changed(index)
 
+    def sort(self):
+        logger.info('Widget sort')
+        # logger.info('len(self.rename.files.filelist): %s', len(self.rename.files.filelist))
+        # self.rename.sort_files(**self.fr)
+        if len(self.rename.files.filelist) <= 0:
+            self.open_dir()
+        elif len(self.rename.files.filelist) <= 1:
+            self.rename.list_files(**self.fr)
+        elif self.fr["ui"].sort.isChecked():
+            self.rename.sort_files(**self.fr)
+
+    def path(self):
+        if len(self.rename.files.filelist) <= 0:
+            self.open_dir()
+        else:
+            index = self.fr["ui"].comboBox.currentIndex()
+            if index == 0:
+                self.rename.list_files(**self.fr)
+            else:
+                self.index_changed(index)
+
     def search_replace(self):
         self.fr["title"] = "Search & Replace"
         if len(self.fr["ui"].search.displayText()):
             self.rename.search_replace(**self.fr)
 
     def find(self):
+        logger.info('Widget find')
+        logger.info('len(self.rename.files.filelist): %s', len(self.rename.files.filelist))
         if self.fr["ui"].dir_txt.displayText():
             dir_name = self.fr["ui"].dir_txt.displayText()
-        else:
-            dir_name = os.path.expanduser('~')
-            self.fr["ui"].dir_txt.setText(dir_name)
         combo_text = self.fr["ui"].comboBox.currentText()
         # logger.info('combo_text: %s', combo_text)
         if len(self.rename.files.filelist) < 1:
@@ -112,7 +135,7 @@ class Widget(QWidget):
             self.case_change = True
         else:
             self.case_change = False
-        if index >= 1 and len(self.rename.files.filelist):
+        if index >= 1 and len(self.rename.files.filelist) >= 1:
             self.fr["ui"].dir_output.clear()
             self.fr["title"] = self.fr["ui"].comboBox.currentText()
             if index == 1:
@@ -138,7 +161,7 @@ class Widget(QWidget):
         elif index >= 1 and len(self.rename.files.filelist) == 0:
             self.open_dir()
             self.fr["title"] = self.fr["ui"].comboBox.currentText()
-            if len(self.rename.files.filelist):
+            if len(self.rename.files.filelist) >= 1:
                 if index == 1:
                     self.rename.remove_chars(**self.fr)
                 elif index == 2:

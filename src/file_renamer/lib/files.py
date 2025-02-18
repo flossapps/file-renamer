@@ -81,8 +81,10 @@ class Files(File):
         self.fr = fr
         self.filelist.clear()
         self.changed.clear()
+        self.fr["ui"].dir_output.clear()
         count = 0
         text = ""
+        msg = "PLEASE WAIT..."
         if self.fr['theme'] == 'light':
             self.fr["ui"].label.setStyleSheet(
                 "color: white; background-color: gray;"
@@ -97,28 +99,20 @@ class Files(File):
         try:
             if self.fr["ui"].recursively.isChecked():
                 for file in Path(fr["path"]).rglob(filter):
-                    if os.path.isfile(file):
-                        if count < self.limit:
-                            self.filelist.append(file)
-                            count += 1
-                            text = "File " + str(count)
-                            self.fr["ui"].dir_output.append(text)
-                            self.fr["ui"].dir_output.append(str(file))
-                            self.fr["ui"].dir_output.append("")
-                        else:
-                            raise Exception()
+                    if count < self.limit:
+                        self.filelist.append(file)
+                        count += 1
+                        self.print_files(file, count)
+                    else:
+                        raise Exception()
             else:
                 for file in Path(fr["path"]).glob(filter):
-                    if os.path.isfile(file):
-                        if count < self.limit:
-                            self.filelist.append(file)
-                            count += 1
-                            text = "File " + str(count)
-                            self.fr["ui"].dir_output.append(text)
-                            self.fr["ui"].dir_output.append(str(file))
-                            self.fr["ui"].dir_output.append("")
-                        else:
-                            raise Exception()
+                    if count < self.limit:
+                        self.filelist.append(file)
+                        count += 1
+                        self.print_files(file, count)
+                    else:
+                        raise Exception()
             if count == 0:
                 raise FileNotFoundError()
         except FileNotFoundError:
@@ -138,6 +132,30 @@ class Files(File):
                 'self.case_sensitive_val: %s',
                 self.case_sensitive_val
             )
+
+    def print_files(self, file, count):
+        text = "File " + str(count)
+        self.fr["ui"].dir_output.append(text)
+        if self.fr["ui"].path.isChecked():
+            self.fr["ui"].dir_output.append(str(file))
+        else:
+            self.fr["ui"].dir_output.append(str(os.path.basename(file)))
+        self.fr["ui"].dir_output.append("")
+
+    @Slot()
+    def sort(self, **fr):
+        logger.info('Files sort')
+        self.fr = fr
+        logger.info('len(self.filelist): %s', len(self.filelist))
+        logger.info('self.fr["ui"].sort.isChecked(): %s', self.fr["ui"].sort.isChecked())
+        logger.info('self.filelist.sort()')
+        if self.fr["ui"].sort.isChecked():
+            self.fr["ui"].dir_output.clear()
+            self.filelist.sort()
+            count = 0
+            for file in self.filelist:
+                count += 1
+                self.print_files(file, count)
 
     def split_name(self, **fr):
         self.fr = fr

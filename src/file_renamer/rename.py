@@ -38,6 +38,10 @@ class Rename:
         self.fr = fr
         self.files.list(**self.fr)
 
+    def sort_files(self, **fr):
+        self.fr = fr
+        self.files.sort(**self.fr)
+
     def check_options(self, **fr):
         self.fr = fr
         filename = ""
