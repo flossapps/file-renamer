@@ -61,6 +61,10 @@ class MainWindow(QMainWindow):
             html_icon, "&Version", self, triggered=self.show_version
         )
         app_menu.addAction(version_action)
+        privacy_action = QAction(
+            html_icon, "&Privacy", self, triggered=self.show_privacy
+        )
+        app_menu.addAction(privacy_action)
         exit_action = QAction(
             exit_icon, "&Exit", self, shortcut="Ctrl+Q",
             triggered=self.close
@@ -138,6 +142,34 @@ class MainWindow(QMainWindow):
         self.fr['page-id'] = 'version'
         self.render_html()
 
+    @Slot()
+    def show_privacy(self):
+        from file_renamer.__version__ import __version__
+        title = "Privacy"
+        body = """
+        <div class="container">
+            <h1>Privacy</h1>
+            <div class="p-3 text-primary-emphasis bg-danger border \
+            bs-danger-border-subtle rounded-3">
+                NO DATA IS SENT OVER THE INTERNET
+            </div>
+            <p>&nbsp;</p>
+            <p>The following data is collected for the purpose for the app\
+            to work. These data stays on your desktop:<p>
+            <ol>
+                <li>Filenames including path</li>
+                <li>Operating system</li>
+            </ol>
+            <p>File Renamer is 100% PRIVATE.</p>
+            <p>Feel free to inspect the source code at:<br>
+            https://github.com/flossapps/file-renamer</p>
+        </div>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'privacy'
+        self.render_html()
+
     def set_theme(self):
         qss = ""
         if self.fr["platform"] == "Windows":
@@ -164,6 +196,8 @@ class MainWindow(QMainWindow):
             self.fr['app'].setStyleSheet(qss)
             if self.fr['page-id'] == 'version':
                 self.show_version()
+            elif self.fr['page-id'] == 'privacy':
+                    self.show_privacy()
             elif self.fr['page-id'] == 'license':
                 self.show_license()
             elif self.fr['page-id'] == 'python':
