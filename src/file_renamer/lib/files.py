@@ -99,20 +99,28 @@ class Files(File):
         try:
             if self.fr["ui"].recursively.isChecked():
                 for file in Path(fr["path"]).rglob(filter):
-                    if count < self.limit:
-                        self.filelist.append(file)
-                        count += 1
-                        self.print_files(file, count)
+                    if os.path.isfile(file):
+                        if count < self.limit:
+                            self.filelist.append(file)
+                            count += 1
+                            self.print_files(file, count)
+                        else:
+                            raise Exception()
                     else:
-                        raise Exception()
+                        pass
+                        # logger.info('Directories not support for now')
             else:
                 for file in Path(fr["path"]).glob(filter):
-                    if count < self.limit:
-                        self.filelist.append(file)
-                        count += 1
-                        self.print_files(file, count)
+                    if os.path.isfile(file):
+                        if count < self.limit:
+                            self.filelist.append(file)
+                            count += 1
+                            self.print_files(file, count)
+                        else:
+                            raise Exception()
                     else:
-                        raise Exception()
+                        pass
+                        # logger.info('Directories not support for now')
             if count == 0:
                 raise FileNotFoundError()
         except FileNotFoundError:
