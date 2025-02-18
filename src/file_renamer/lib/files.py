@@ -146,9 +146,6 @@ class Files(File):
     def sort(self, **fr):
         logger.info('Files sort')
         self.fr = fr
-        logger.info('len(self.filelist): %s', len(self.filelist))
-        logger.info('self.fr["ui"].sort.isChecked(): %s', self.fr["ui"].sort.isChecked())
-        logger.info('self.filelist.sort()')
         if self.fr["ui"].sort.isChecked():
             self.fr["ui"].dir_output.clear()
             self.filelist.sort()
@@ -259,8 +256,12 @@ class Files(File):
             self.changed[self.fr["filename"]] = new_file
             text = "Preview " + str(data["count"])
             self.fr["ui"].dir_output.append(text)
-            self.fr["ui"].dir_output.append(str(self.fr["filename"]))
-            self.fr["ui"].dir_output.append(str(new_file))
+            if self.fr["ui"].path.isChecked():
+                self.fr["ui"].dir_output.append(str(self.fr["filename"]))
+                self.fr["ui"].dir_output.append(str(new_file))
+            else:
+                self.fr["ui"].dir_output.append(str(os.path.basename(self.fr["filename"])))
+                self.fr["ui"].dir_output.append(str(os.path.basename(new_file)))
             self.fr["ui"].dir_output.append("")
 
     @Slot()
@@ -280,8 +281,12 @@ class Files(File):
             count += 1
             text = "Renamed " + str(count)
             self.fr["ui"].dir_output.append(text)
-            self.fr["ui"].dir_output.append(str(current_file))
-            self.fr["ui"].dir_output.append(str(new_file))
+            if self.fr["ui"].path.isChecked():
+                self.fr["ui"].dir_output.append(str(current_file))
+                self.fr["ui"].dir_output.append(str(new_file))
+            else:
+                self.fr["ui"].dir_output.append(str(os.path.basename(current_file)))
+                self.fr["ui"].dir_output.append(str(os.path.basename(new_file)))
             self.fr["ui"].dir_output.append("")
         text = 'Total Files: ' + str(count)
         self.fr["ui"].dir_output.append(text)
