@@ -102,7 +102,7 @@
          <string/>
         </property>
         <property name="text">
-         <string>Extension</string>
+         <string>Keep Extension</string>
         </property>
        </widget>
       </item>
@@ -128,7 +128,7 @@
          </size>
         </property>
         <property name="text">
-         <string>ID</string>
+         <string>Keep ID</string>
         </property>
        </widget>
       </item>
