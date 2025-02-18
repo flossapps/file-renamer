@@ -224,7 +224,7 @@ class Ui_Widget(object):
         self.label.setText(QCoreApplication.translate("Widget", u"PREVIEW", None))
         self.browse.setTitle("")
         self.filter_label.setText(QCoreApplication.translate("Widget", u"Filter", None))
-        self.filter_txt.setText(QCoreApplication.translate("Widget", u"*", None))
+        self.filter_txt.setText(QCoreApplication.translate("Widget", u"*.*", None))
         self.dir_btn.setText(QCoreApplication.translate("Widget", u"Browse", None))
         self.options.setTitle("")
         self.recursively.setText(QCoreApplication.translate("Widget", u"Recursively", None))
