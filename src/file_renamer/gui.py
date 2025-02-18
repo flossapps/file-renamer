@@ -172,6 +172,10 @@ class MainWindow(QMainWindow):
                 self.show_pyside()
             elif self.fr['page-id'] == 'bootstrap':
                 self.show_bootstrap()
+            elif self.fr['page-id'] == 'xonsh':
+                self.show_xonsh()
+            else:
+                logger.info('PAGE NOT FOUND')
         else:
             logger.info('theme NOT set: %s', self.fr['theme'])
 
@@ -223,8 +227,8 @@ class MainWindow(QMainWindow):
         <div class="container">
             <h1>Python</h1>
 
-            <div class="p-3 text-primary-emphasis bg-primary-subtle \
-                border border-primary-subtle rounded-3">
+            <div class="p-3 text-primary-emphasis bg-info-subtle \
+                border bs-info-border-subtle rounded-3">
                 Version
                 <ul>
                     <li>
@@ -255,8 +259,8 @@ class MainWindow(QMainWindow):
         <div class="container">
             <h1>Qt for Python</h1>
 
-            <div class="p-3 text-primary-emphasis bg-primary-subtle \
-                border border-primary-subtle rounded-3">
+            <div class="p-3 text-primary-emphasis bg-info-subtle \
+                border bs-info-border-subtle rounded-3">
                 Versions
                 <ul>
                     <li>
@@ -302,8 +306,8 @@ class MainWindow(QMainWindow):
         <div class="container">
             <h1>Bootstrap</h1>
 
-            <div class="p-3 text-primary-emphasis bg-primary-subtle \
-                border border-primary-subtle rounded-3">
+            <div class="p-3 text-primary-emphasis bg-info-subtle \
+                border bs-info-border-subtle rounded-3">
                 Version
                 <ul>
                     <li>
@@ -334,8 +338,8 @@ class MainWindow(QMainWindow):
         <div class="container">
             <h1>XONSH</h1>
 
-            <div class="p-3 text-primary-emphasis bg-primary-subtle \
-                border border-primary-subtle rounded-3">
+            <div class="p-3 text-primary-emphasis bg-info-subtle \
+                border bs-info-border-subtle rounded-3">
                 Version
                 <ul>
                     <li>
