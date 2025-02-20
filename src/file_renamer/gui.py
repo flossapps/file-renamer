@@ -13,6 +13,7 @@ https://www.gnu.org/licenses/gpl-3.0.html
 import sys
 import logging
 import inspect
+import re
 import PySide6.QtCore
 from PySide6.QtCore import (Slot, QDir)
 from PySide6.QtGui import QAction, QIcon
@@ -134,6 +135,10 @@ class MainWindow(QMainWindow):
         body = """
         <div class="container">
             <h1>File Renamer """ + __version__ + """</h1>
+            <p>
+                File Renamer is a desktop app for Linux and Windows for batch
+                renaming files. It's Free, Libre, Open Source Software (FLOSS).
+            </p>
             <p><strong>GitHub</strong><br>
                 https://github.com/flossapps/file-renamer
             </p>
@@ -293,28 +298,19 @@ class MainWindow(QMainWindow):
     @Slot()
     def show_python(self):
         title = "Python"
-        version = sys.version
+        regex = r'(^\d{1,2}\.\d{1,2}\.\d{1,2})'
+        result = re.search(regex, sys.version)
+        if result.group() != "":
+            version = result.group()
+        else:
+            version = '3.13'
         body = """
         <div class="container">
-            <h1>Python</h1>
-
-            <div class="p-3 text-primary-emphasis bg-info-subtle \
-                border bs-info-border-subtle rounded-3">
-                Version
-                <ul>
-                    <li>
-                        <strong>Python</strong>&nbsp;&nbsp;""" \
-                        + version + """
-                    </li>
-                </ul>
-            </div>
-
+            <h1>Python """ + version + """</h1>
             <p>Python is an interpreted, interactive, object-oriented
  programming language.</p>
-
             <p><strong>Python</strong><br>
             https://www.python.org</p>
-
             <p><strong>Docs</strong><br>
             https://docs.python.org</p>
         </div>"""
@@ -328,22 +324,7 @@ class MainWindow(QMainWindow):
         title = "Qt for Python"
         body = """
         <div class="container">
-            <h1>Qt for Python</h1>
-
-            <div class="p-3 text-primary-emphasis bg-info-subtle \
-                border bs-info-border-subtle rounded-3">
-                Versions
-                <ul>
-                    <li>
-                        <strong>Qt</strong>&nbsp;&nbsp;""" \
-                        + PySide6.QtCore.__version__ + """
-                    </li>
-                    <li><strong>PySide6</strong>&nbsp;&nbsp;""" \
-                        + PySide6.__version__ + """
-                    </li>
-                </ul>
-            </div>
-
+            <h1>Qt for Python """ + PySide6.QtCore.__version__ + """</h1>
             <p>Qt for Python offers the official Python bindings for Qt,
             which enables you to use Python to write your Qt applications.
             The project has two main components:</p>
@@ -357,10 +338,8 @@ class MainWindow(QMainWindow):
                 </ol>
             <p>This project is available under the LGPLv3/GPLv3 and the Qt
             commercial license.</p>
-
             <p><strong>Qt for Python</strong><br>
             https://www.qt.io/qt-for-python</p>
-
             <p><strong>Docs</strong><br>
             https://doc.qt.io/qtforpython-6</p>
         </div>"""
@@ -375,24 +354,10 @@ class MainWindow(QMainWindow):
         version = "5.3.3"
         body = """
         <div class="container">
-            <h1>Bootstrap</h1>
-
-            <div class="p-3 text-primary-emphasis bg-info-subtle \
-                border bs-info-border-subtle rounded-3">
-                Version
-                <ul>
-                    <li>
-                        <strong>Bootstrap</strong>&nbsp;&nbsp;""" \
-                        + version + """
-                    </li>
-                </ul>
-            </div>
-
+            <h1>Bootstrap """ + version + """</h1>
             <p>Bootstrap is a powerful, feature-packed frontend toolkit.</p>
-
             <p><strong>Bootstrap</strong><br>
             https://getbootstrap.com</p>
-
             <p><strong>Docs</strong><br>
             https://getbootstrap.com/docs/</p>
         </div>"""
@@ -407,24 +372,10 @@ class MainWindow(QMainWindow):
         version = "0.19.1"
         body = """
         <div class="container">
-            <h1>XONSH</h1>
-
-            <div class="p-3 text-primary-emphasis bg-info-subtle \
-                border bs-info-border-subtle rounded-3">
-                Version
-                <ul>
-                    <li>
-                        <strong>XONSH</strong>&nbsp;&nbsp;""" \
-                        + version + """
-                    </li>
-                </ul>
-            </div>
-
+            <h1>XONSH """ + version + """</h1>
             <p>XONSH is a Python-powered shell</p>
-
             <p><strong>XONSH</strong><br>
             https://xon.sh/</p>
-
             <p><strong>Docs</strong><br>
             https://xon.sh/contents.html</p>
         </div>"""
