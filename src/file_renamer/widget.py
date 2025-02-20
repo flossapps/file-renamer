@@ -182,7 +182,17 @@ class Widget(QWidget):
         self.rename.files.filelist.clear()
         self.rename.files.changed.clear()
         self.fr["ui"].rename_btn.setEnabled(False)
-        self.fr["ui"].label.setText("PREVIEW")
+        self.fr["ui"].label.setText("APP")
+        self.fr["ui"].filter_txt.setText('*.*')
+        self.fr["ui"].dir_txt.clear()
+        self.fr["ui"].recursively.setChecked(False)
+        self.fr["ui"].extension.setChecked(False)
+        self.fr["ui"].id.setChecked(False)
+        self.fr["ui"].path.setChecked(False)
+        self.fr["ui"].regex.setChecked(False)
+        self.fr["ui"].sort.setChecked(False)
+        self.fr["ui"].comboBox.setCurrentIndex(0)
+        self.fr["ui"].comboBox.setCurrentText('Select')
         if self.fr['theme'] == 'light':
             self.fr["ui"].label.setStyleSheet(
                 "color: white; background-color: gray;"
