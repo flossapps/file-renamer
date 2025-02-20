@@ -162,8 +162,8 @@ class MainWindow(QMainWindow):
             bs-danger-border-subtle rounded-3">
                 <strong>NO DATA IS SENT OVER THE INTERNET</strong>
             </div>
-            <p>The following data is collected for the purpose for the app\
-            to work. These data stays on your desktop:<p>
+            <p>The following data is collected for the app to work. The data\
+stays on your desktop:<p>
             <ol>
                 <li>Filenames including path</li>
                 <li>Operating system</li>
