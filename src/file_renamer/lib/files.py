@@ -96,6 +96,8 @@ class Files(File):
         self.fr["title"] = "LIST FILES"
         self.print_title(**fr)
         filter = self.fr["ui"].filter_txt.text()
+        if filter == "":
+            filter = "*.*"
         try:
             if self.fr["ui"].recursively.isChecked():
                 for file in Path(fr["path"]).rglob(filter):
