@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+File Renamer
+https://github.com/flossapps/file-renamer
+
+A desktop app for Linux and Windows for batch renaming files.
+It's Free, Libre, Open Source Software (FLOSS).
+
+Copyright (C) 2024 Carlos
+GNU General Public License
+https://www.gnu.org/licenses/gpl-3.0.html
+-->
 <ui version="4.0">
  <class>Widget</class>
  <widget class="QWidget" name="Widget">
@@ -17,7 +28,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>PREVIEW</string>
+      <string>APP</string>
      </property>
     </widget>
    </item>

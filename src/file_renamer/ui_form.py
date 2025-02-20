@@ -1,12 +1,14 @@
-# -*- coding: utf-8 -*-
+"""
+File Renamer
+https://github.com/flossapps/file-renamer
 
-################################################################################
-## Form generated from reading UI file 'form.ui'
-##
-## Created by: Qt User Interface Compiler version 6.8.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+A desktop app for Linux and Windows for batch renaming files.
+It's Free, Libre, Open Source Software (FLOSS).
+
+Copyright (C) 2024 Carlos
+GNU General Public License
+https://www.gnu.org/licenses/gpl-3.0.html
+"""
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -221,7 +223,7 @@ class Ui_Widget(object):
 
     def retranslateUi(self, Widget):
         Widget.setWindowTitle(QCoreApplication.translate("Widget", u"File Renamer", None))
-        self.label.setText(QCoreApplication.translate("Widget", u"PREVIEW", None))
+        self.label.setText(QCoreApplication.translate("Widget", u"APP", None))
         self.browse.setTitle("")
         self.filter_label.setText(QCoreApplication.translate("Widget", u"Filter", None))
         self.filter_txt.setText(QCoreApplication.translate("Widget", u"*.*", None))
