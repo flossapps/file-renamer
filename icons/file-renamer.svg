@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-File Renamer
-https://github.com/flossapps/file-renamer
-
-A free, libre, open source software desktop app for Linux and Windows for batch renaming files.
-
-Copyright (C) 2024 Carlos
-GNU General Public License
-https://www.gnu.org/licenses/gpl-3.0.html
--->
+<!-- File Renamer, Copyright (C) 2024 Carlos, GNU General Public License v3 -->
+<!-- https://github.com/flossapps/file-renamer -->
 <svg
    width="128"
    height="128"
