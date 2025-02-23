@@ -13,37 +13,52 @@ import os
 import sys
 import platform
 from pathlib import Path
+import subprocess
 
 $XONSH_SHOW_TRACEBACK = True
 $XONSH_TRACEBACK_LOGFILE = os.path.expanduser('~') + "/xonsh.log"
 $RAISE_SUBPROC_ERROR = True
 
 $platform = platform.system()
-$fr_path = '/fr/file-renamer'
 
 if $platform == "Windows":
     $pc_path = 'C:\\Users\\Me'
+    $vox_path = $pc_path + "\\fr\\vox"
+    $fr_path = '\\fr\\file-renamer'
+    $project_path = $pc_path + $fr_path
+    $py_path = $pc_path + $fr_path + "\\src"
 else:
     $pc_path = '/data'
+    $vox_path = $pc_path + "/fr/vox"
+    $fr_path = '/fr/file-renamer'
+    $project_path = $pc_path + $fr_path
+    $py_path = $pc_path + $fr_path + "/src"
 
-$project_path = $pc_path + $fr_path
-$vox_path = $pc_path + "/fr/vox"
-$VIRTUALENV_HOME = Path($vox_path)
-$py_path = $pc_path + $fr_path + "/src"
-# $PYTHONPATH = Path($py_path)
+$VIRTUALENV_HOME = $vox_path
+# $PYTHONPATH = $py_path
 
-def frve():
-    try:
-        if os.path.exists($project_path) is False:
-           raise NotADirectoryError()
-    except NotADirectoryError:
-        print('PATH NOT FOUND: ', $project_path)
-    except Exception as err:
-        print(f"Unexpected {err=}, {type(err)=}")
+xontrib load vox  # Load vox
+
+def frve(ve):
+    """File Renamer virtual environment"""
+    velist = ["dev", "dev2", "test"]  # Existing virtual environments
+    if ve != '' and ve in velist:
+        try:
+            if os.path.exists($project_path) is False:
+                raise NotADirectoryError()
+        except NotADirectoryError:
+            print('PATH NOT FOUND: ', $project_path)
+        except Exception as err:
+            print(f"Unexpected {err=}, {type(err)=}")
+        else:
+            cd $project_path
+            print($platform)
+            # Activate virtual environment
+            if ve == "dev":
+                vox activate dev
+            elif ve == "test":
+                vox activate test
+            else:
+                print('Unknown virtual environment: ', ve)
     else:
-        cd $project_path
-        print($platform)
-        xontrib load vox  # Load vox
-        vox activate dev  # Activate virtual environment
-
-frve()
+        print('Virtual Environment Not Found:', ve)
