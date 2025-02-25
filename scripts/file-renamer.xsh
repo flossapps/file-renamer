@@ -249,17 +249,17 @@ def portable_build():
     if $platform == "Windows":
         spec = $project_path + "\\spec\\app-win.spec"
     else:
-        spec = $project_path + "/spec/app-linux.spec"
-    subprocess.run(["pyinstaller", "--clean", spec])
+        spec = $project_path + "/spec/app-linux.spec"  
+    subprocess.run(["pyside6-deploy", "-v", "-c", spec])
     portable()
 
 
 def portable_run():
     print("Run")
     if $platform == "Windows":
-        portable_file = $project_path + '\\dist\\file-renamer.exe'
+        portable_file = $project_path + '\\deploy\\file-renamer.exe'
     else:
-        portable_file = $project_path + '/dist/file-renamer'
+        portable_file = $project_path + '/deploy/file-renamer'
     try:
         if os.path.exists(portable_file) is False:
             raise FileNotFoundError()
