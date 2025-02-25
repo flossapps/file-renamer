@@ -35,7 +35,7 @@ else:
     $py_path = $pc_path + $fr_path + "/src"
 
 $VIRTUALENV_HOME = $vox_path
-# $PYTHONPATH = $py_path
+$PYTHONPATH = $py_path
 
 xontrib load vox  # Load vox
 
@@ -54,8 +54,11 @@ def frve(ve):
             cd $project_path
             print($platform)
             # Activate virtual environment
+            # vox activate ve  # ERROR
             if ve == "dev":
                 vox activate dev
+            elif ve == "dev2":
+                vox activate dev2
             elif ve == "test":
                 vox activate test
             else:
