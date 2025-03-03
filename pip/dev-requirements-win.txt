@@ -1,0 +1,11 @@
+PySide6~=6.8.2
+PySide6-Addons~=6.8.2
+PySide6-Essentials~=6.8.2
+shiboken6~=6.8.2
+Unidecode~=1.3.8
+build~=1.2.2.post1
+nuitka~=2.6.7
+twine~=6.1.0
+pycodestyle~=2.12.1
+validate-pyproject~=0.23
+imageio~=2.37
