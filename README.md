@@ -30,10 +30,11 @@ Renamed
 
 ***
 
+[All Screenshots](https://github.com/flossapps/file-renamer/tree/main/screenshots)
+
+***
+
 ## Installation
 [Wiki](https://github.com/flossapps/file-renamer/wiki)
 
 ***
-
-## All Screenshots
-[Screenshots](https://github.com/flossapps/file-renamer/tree/main/screenshots)
