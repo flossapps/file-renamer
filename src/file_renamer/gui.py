@@ -110,6 +110,10 @@ class MainWindow(QMainWindow):
             html_icon, 'XONSH', self, triggered=self.show_xonsh
         )
         about_menu.addAction(xonsh_action)
+        nuitka_action = QAction(
+            html_icon, 'Nuitka', self, triggered=self.show_nuitka
+        )
+        about_menu.addAction(nuitka_action)
 
     def show_widget(self):
         if not self.dir_output:
@@ -250,6 +254,8 @@ stays on your desktop:<p>
                 self.show_bootstrap()
             elif self.fr['page-id'] == 'xonsh':
                 self.show_xonsh()
+            elif self.fr['page-id'] == 'nuitka':
+                self.show_nuitka()
             else:
                 logger.info('PAGE NOT FOUND')
         else:
@@ -382,4 +388,24 @@ stays on your desktop:<p>
         self.fr['html_title'] = title
         self.fr['html_body'] = body
         self.fr['page-id'] = 'xonsh'
+        self.render_html()
+
+    @Slot()
+    def show_nuitka(self):
+        title = "Nuitka"
+        version = "2.6.7"
+        body = """
+        <div class="container">
+            <h1>Nuitka """ + version + """</h1>
+            <p>Nuitka is the optimizing Python compiler written in Python that
+ creates executables that run without a separate installer. Data files can both
+ be included or put alongside.</p>
+            <p><strong>Nuitka</strong><br>
+            https://nuitka.net/</p>
+            <p><strong>Docs</strong><br>
+            https://nuitka.net/user-documentation/</p>
+        </div>"""
+        self.fr['html_title'] = title
+        self.fr['html_body'] = body
+        self.fr['page-id'] = 'nuitka'
         self.render_html()
