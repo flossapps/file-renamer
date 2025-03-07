@@ -21,25 +21,20 @@ logger = logging.getLogger(__name__)
 
 class Messages(QMainWindow):
 
-    def __init__(self, **fr):
+    def __init__(self):
         super().__init__()
         logger.info('class Messages')
-        self.fr = fr
-        if self.fr['msg-type'] == 'info':
-            self.info()
-        elif self.fr['msg-type'] == 'critical':
-            self.critical()
 
-    def info(self):
+    def info(self, **kwargs):
         button = QMessageBox.information(
             self,
-            self.fr['msg-title'],
-            self.fr['msg-info'],
+            kwargs['title'],
+            kwargs['body'],
         )
 
-    def critical(self):
+    def critical(self, **kwargs):
         button = QMessageBox.critical(
             self,
-            self.fr['msg-title'],
-            self.fr['msg-info'],
+            kwargs['title'],
+            kwargs['body'],
         )

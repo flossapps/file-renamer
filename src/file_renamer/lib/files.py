@@ -19,8 +19,8 @@ from pathlib import Path
 from abc import ABC, abstractmethod
 from PySide6.QtWidgets import QWidget, QLineEdit
 from PySide6.QtCore import Slot
-from file_renamer.lib.exceptions import Messages
 from file_renamer.lib.case import CaseSensitive
+from random import randrange
 
 logger = logging.getLogger(__name__)
 
@@ -126,11 +126,11 @@ class Files(File):
             if count == 0:
                 raise FileNotFoundError()
         except FileNotFoundError:
-            self.fr["ui"].rename_btn.setEnabled(False)
-            self.filelist.clear()
-            self.fr["ui"].dir_output.clear()
-            self.fr['msg-info'] = 'NO FILES FOUND!'
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": "NO FILES FOUND!"
+            }
+            self.clear(**kwargs)
         except Exception:
             text = 'Total Files: ' + str(len(self.filelist)) + ' (MAX REACHED)'
             self.fr["ui"].dir_output.append(text)
@@ -188,8 +188,11 @@ class Files(File):
             else:
                 raise FileNotFoundError()
         except FileNotFoundError:
-            self.fr['msg-info'] = 'FILE NOT FOUND!'
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": "FILE NOT FOUND!"
+            }
+            self.clear(**kwargs)
             return None
         else:
             return self.file
@@ -321,3 +324,51 @@ class Files(File):
             self.fr["ui"].rename_btn.setEnabled(True)
         else:
             logger.info('data["count"] unknown')
+
+    @Slot()
+    def clear(self, **kwargs):
+        self.filelist.clear()
+        self.changed.clear()
+        self.fr["ui"].dir_output.clear()
+        self.fr["ui"].search.clear()
+        self.fr["ui"].replace.clear()
+        self.fr["ui"].rename_btn.setEnabled(False)
+        self.fr["ui"].filter_txt.setText('*.*')
+        self.fr["ui"].recursively.setChecked(False)
+        self.fr["ui"].extension.setChecked(False)
+        self.fr["ui"].id.setChecked(False)
+        self.fr["ui"].path.setChecked(False)
+        self.fr["ui"].regex.setChecked(False)
+        self.fr["ui"].sort.setChecked(False)
+        self.fr["ui"].comboBox.setCurrentIndex(0)
+        self.fr["ui"].comboBox.setCurrentText('Select')
+        self.label_style(**kwargs)
+
+    def label_style(self, **kwargs):
+        if kwargs["error"]:
+            self.fr["ui"].label.setText("ERROR")
+            self.fr["ui"].dir_output.setText(kwargs['msg'])
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: maroon;"
+            )
+        else:
+            self.fr["ui"].label.setText("APP")
+            if self.fr['theme'] == 'light':
+                self.fr["ui"].label.setStyleSheet(
+                    "color: white; background-color: gray;"
+                )
+            elif self.fr['theme'] == 'dark':
+                self.fr["ui"].label.setStyleSheet(
+                    "color: white; background-color: black;"
+                )
+
+    def writeable(self, path):
+        random_num = str(randrange(1000, 1000000))
+        file = Path(path + "/" +random_num + ".txt")
+        try:
+            with open(file, "w") as f:
+                f.write("Testing...")
+                os.remove(file)
+                return True
+        except PermissionError as err:
+            return False

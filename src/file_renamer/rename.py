@@ -16,7 +16,6 @@ import unidecode
 import inspect
 from pathlib import Path
 from file_renamer.lib.files import Files
-from file_renamer.lib.exceptions import Messages
 
 logger = logging.getLogger(__name__)
 
@@ -104,8 +103,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except Errors as err:
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -128,9 +130,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -193,9 +197,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -218,9 +224,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -241,9 +249,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -264,9 +274,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -286,9 +298,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -308,9 +322,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -341,9 +357,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -364,9 +382,12 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            self.files.clear()
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 
@@ -409,9 +430,11 @@ class Rename:
                 self.update_options(**self.fr)
                 self.files.compare(self.file, self.data, **self.fr)
         except SystemError as err:
-            self.files.filelist.clear()
-            self.fr['msg-info'] = err
-            msg = Messages(**self.fr)
+            kwargs = {
+                "error": True,
+                "msg": err
+            }
+            self.files.clear(**kwargs)
         else:
             self.files.preview(self.data, **self.fr)
 

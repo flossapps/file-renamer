@@ -34,30 +34,31 @@ class Widget(QWidget):
         self.rename = Rename(**self.fr)
         # Track lower or title case change
         self.fr["case_change"] = False
+        self.files = Files(**self.fr)
 
     def open_dir(self):
         dir_name = QFileDialog.getExistingDirectory(self, "Select a Directory")
         if dir_name:
+            self.fr["ui"].dir_txt.setText(dir_name)
             self.fr["path"] = Path(dir_name)
-            self.fr["ui"].dir_txt.setText(str(self.fr["path"]))
-            self.fr["ui"].label.setText('LIST FILES')
-            self.fr["ui"].sort.setChecked(False)
-            self.rename.list_files(**self.fr)
+            if self.files.writeable(dir_name) is False:
+                kwargs = {
+                    "error": True,
+                    "msg": "PATH NOT WRITEABLE"
+                }
+                self.files.clear(**kwargs)
+            else:
+                self.fr["ui"].label.setText('LIST FILES')
+                if self.fr["ui"].sort.isChecked():
+                    if len(self.rename.files.filelist) >= 2:
+                        self.rename.sort_files(**self.fr)
+                    else:
+                        self.rename.list_files(**self.fr)
+                else:
+                    self.rename.list_files(**self.fr)
 
     def add_recursively(self):
-        dir_name = ""
-        self.fr["ui"].sort.setChecked(False)
-        if self.fr["ui"].comboBox.currentIndex() > 0:
-            self.fr["ui"].comboBox.setCurrentIndex(0)
-            self.fr["ui"].comboBox.setCurrentText('PREVIEW')
-        if self.fr["ui"].dir_txt.displayText():
-            dir_name = self.fr["ui"].dir_txt.displayText()
-            self.fr["path"] = dir_name
-        if os.path.exists(self.fr["path"]):
-            self.rename.list_files(**self.fr)
-        else:
-            self.fr["ui"].label.setText('LIST FILES')
-            self.open_dir()
+        self.open_dir()
 
     def keep_id(self):
         if len(self.rename.files.filelist) <= 0:
@@ -69,23 +70,10 @@ class Widget(QWidget):
             self.rename.list_files(**self.fr)
 
     def keep_ext(self):
-        if len(self.rename.files.filelist) <= 0:
-            self.open_dir()
-        elif len(self.rename.files.filelist) >= 1:
-            self.fr["ui"].sort.setChecked(False)
-            self.fr["ui"].comboBox.setCurrentIndex(0)
-            self.fr["ui"].comboBox.setCurrentText('Select')
-            self.rename.list_files(**self.fr)
+        self.open_dir()
 
     def sort(self):
-        if len(self.rename.files.filelist) <= 0:
-            self.open_dir()
-        elif len(self.rename.files.filelist) <= 1:
-            self.rename.list_files(**self.fr)
-        elif self.fr["ui"].sort.isChecked():
-            self.fr["ui"].comboBox.setCurrentIndex(0)
-            self.fr["ui"].comboBox.setCurrentText('Select')
-            self.rename.sort_files(**self.fr)
+        self.open_dir()
 
     def path(self):
         if len(self.rename.files.filelist) <= 0:
@@ -179,31 +167,10 @@ class Widget(QWidget):
                     self.rename.number(**self.fr)
 
     def clear(self):
-        self.rename.files.filelist.clear()
-        self.rename.files.changed.clear()
-        self.fr["ui"].rename_btn.setEnabled(False)
-        self.fr["ui"].label.setText("APP")
-        self.fr["ui"].filter_txt.setText('*.*')
-        self.fr["ui"].dir_txt.clear()
-        self.fr["ui"].recursively.setChecked(False)
-        self.fr["ui"].extension.setChecked(False)
-        self.fr["ui"].id.setChecked(False)
-        self.fr["ui"].path.setChecked(False)
-        self.fr["ui"].regex.setChecked(False)
-        self.fr["ui"].sort.setChecked(False)
-        self.fr["ui"].comboBox.setCurrentIndex(0)
-        self.fr["ui"].comboBox.setCurrentText('Select')
-        if self.fr['theme'] == 'light':
-            self.fr["ui"].label.setStyleSheet(
-                "color: white; background-color: gray;"
-            )
-        elif self.fr['theme'] == 'dark':
-            self.fr["ui"].label.setStyleSheet(
-                "color: white; background-color: black;"
-            )
-        self.fr["ui"].dir_output.clear()
-        self.fr["ui"].search.clear()
-        self.fr["ui"].replace.clear()
+        kwargs = {
+            "error": False
+        }
+        self.files.clear(**kwargs)
 
     def rename_files(self):
         self.fr["title"] = ""
