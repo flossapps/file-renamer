@@ -20,6 +20,7 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QDir, QFile, QFileInfo, QIODevice, QTextStream
 from file_renamer.gui import MainWindow
 from file_renamer.__version__ import __version__
+from file_renamer.settings import ROOT_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,7 @@ def main(**fr):
         level=logging.DEBUG
     )
     logger.info('File Renamer %s Logs', __version__)
+    logger.info('ROOT_DIR: %s', ROOT_DIR)
     function = inspect.stack()[0].function
     logger.info(function)
     sys_platform = platform.system()
@@ -81,27 +83,18 @@ def main(**fr):
     window.show()
 
     # Set theme
-    qss = ""
     if fr["platform"] == "Windows":
         if fr['theme'] == 'light':
-            from file_renamer.themes.light.light_windows import (
-                LightWindows
-            )
-            style = LightWindows()
-            qss = style.theme
+            qss = ROOT_DIR + "/themes/light/light_windows.qss"
         elif fr['theme'] == 'dark':
-            from file_renamer.themes.dark.dark_windows import DarkWindows
-            style = DarkWindows()
-            qss = style.theme
+            qss = ROOT_DIR + "/themes/dark/dark_windows.qss"
     else:
         if fr['theme'] == 'light':
-            from file_renamer.themes.light.light_linux import LightLinux
-            style = LightLinux()
-            qss = style.theme
+            qss = ROOT_DIR + "/themes/light/light_linux.qss"
         elif fr['theme'] == 'dark':
-            from file_renamer.themes.dark.dark_linux import DarkLinux
-            style = DarkLinux()
-            qss = style.theme
-    app.setStyleSheet(qss)
+            qss = ROOT_DIR +  "/themes/dark/dark_linux.qss"
+    with open(Path(qss), "r") as f:
+        style = f.read()
+        app.setStyleSheet(style)
     logger.info('theme set: %s', fr['theme'])
     app.exec()

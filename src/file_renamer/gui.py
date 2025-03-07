@@ -14,6 +14,7 @@ import sys
 import logging
 import inspect
 import re
+from pathlib import Path
 import PySide6.QtCore
 from PySide6.QtCore import (Slot, QDir)
 from PySide6.QtGui import QAction, QIcon
@@ -23,6 +24,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from file_renamer.widget import Widget
 from file_renamer.lib.html import WebUI
+from file_renamer.settings import ROOT_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -215,51 +217,38 @@ stays on your desktop:<p>
         self.render_html()
 
     def set_theme(self):
-        qss = ""
         if self.fr["platform"] == "Windows":
             if self.fr['theme'] == 'light':
-                from file_renamer.themes.light.light_windows import (
-                    LightWindows
-                )
-                style = LightWindows()
-                qss = style.theme
+                qss = ROOT_DIR + "/themes/light/light_windows.qss"
             elif self.fr['theme'] == 'dark':
-                from file_renamer.themes.dark.dark_windows import DarkWindows
-                style = DarkWindows()
-                qss = style.theme
+                qss = ROOT_DIR + "/themes/dark/dark_windows.qss"
         else:
             if self.fr['theme'] == 'light':
-                from file_renamer.themes.light.light_linux import LightLinux
-                style = LightLinux()
-                qss = style.theme
+                qss = ROOT_DIR + "/themes/light/light_linux.qss"
             elif self.fr['theme'] == 'dark':
-                from file_renamer.themes.dark.dark_linux import DarkLinux
-                style = DarkLinux()
-                qss = style.theme
-        if qss:
-            self.fr['app'].setStyleSheet(qss)
-            if self.fr['page-id'] == 'version':
-                self.show_version()
-            elif self.fr['page-id'] == 'privacy':
-                    self.show_privacy()
-            elif self.fr['page-id'] == 'malware':
-                self.show_malware()
-            elif self.fr['page-id'] == 'license':
-                self.show_license()
-            elif self.fr['page-id'] == 'python':
-                self.show_python()
-            elif self.fr['page-id'] == 'pyside':
-                self.show_pyside()
-            elif self.fr['page-id'] == 'bootstrap':
-                self.show_bootstrap()
-            elif self.fr['page-id'] == 'xonsh':
-                self.show_xonsh()
-            elif self.fr['page-id'] == 'nuitka':
-                self.show_nuitka()
-            else:
-                logger.info('PAGE NOT FOUND')
-        else:
-            logger.info('theme NOT set: %s', self.fr['theme'])
+                qss = ROOT_DIR +  "/themes/dark/dark_linux.qss"
+        # self.fr['app'].setStyleSheet(qss)
+        with open(Path(qss), "r") as f:
+            style = f.read()
+            self.fr['app'].setStyleSheet(style)
+        if self.fr['page-id'] == 'version':
+            self.show_version()
+        elif self.fr['page-id'] == 'privacy':
+                self.show_privacy()
+        elif self.fr['page-id'] == 'malware':
+            self.show_malware()
+        elif self.fr['page-id'] == 'license':
+            self.show_license()
+        elif self.fr['page-id'] == 'python':
+            self.show_python()
+        elif self.fr['page-id'] == 'pyside':
+            self.show_pyside()
+        elif self.fr['page-id'] == 'bootstrap':
+            self.show_bootstrap()
+        elif self.fr['page-id'] == 'xonsh':
+            self.show_xonsh()
+        elif self.fr['page-id'] == 'nuitka':
+            self.show_nuitka()
 
     @Slot()
     def set_dark_theme(self):
