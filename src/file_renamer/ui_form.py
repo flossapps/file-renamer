@@ -1,10 +1,12 @@
-"""
-File Renamer is a desktop app for Linux and Windows for batch renaming files.
-https://github.com/flossapps/file-renamer
+# -*- coding: utf-8 -*-
 
-Copyright (C) 2024 Carlos, GNU General Public License
-https://www.gnu.org/licenses/gpl-3.0.html
-"""
+################################################################################
+## Form generated from reading UI file 'form.ui'
+##
+## Created by: Qt User Interface Compiler version 6.8.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -202,7 +204,6 @@ class Ui_Widget(object):
 
         self.retranslateUi(Widget)
         self.dir_btn.clicked.connect(Widget.open_dir)
-        self.dir_btn.clicked.connect(self.dir_txt.update)
         self.clear_btn.clicked.connect(Widget.clear)
         self.comboBox.currentIndexChanged.connect(Widget.index_changed)
         self.rename_btn.clicked.connect(Widget.rename_files)

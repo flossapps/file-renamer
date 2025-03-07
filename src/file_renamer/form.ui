@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- File Renamer is a desktop app for Linux and Windows for batch renaming files. -->
-<!-- https://github.com/flossapps/file-renamer -->
-<!-- Copyright (C) 2024 Carlos, GNU General Public License -->
-<!-- https://www.gnu.org/licenses/gpl-3.0.html -->
 <ui version="4.0">
  <class>Widget</class>
  <widget class="QWidget" name="Widget">
@@ -357,22 +353,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <hint type="destinationlabel">
      <x>-3</x>
      <y>31</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dir_btn</sender>
-   <signal>clicked()</signal>
-   <receiver>dir_txt</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>463</x>
-     <y>79</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>686</x>
-     <y>78</y>
     </hint>
    </hints>
   </connection>
