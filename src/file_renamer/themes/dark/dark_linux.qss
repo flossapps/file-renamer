@@ -1,4 +1,4 @@
-"""
+/*
 File Renamer
 https://github.com/flossapps/file-renamer
 
@@ -8,20 +8,8 @@ It's Free, Libre, Open Source Software (FLOSS).
 Copyright (C) 2024 Carlos
 GNU General Public License
 https://www.gnu.org/licenses/gpl-3.0.html
-"""
+*/
 
-import logging
-import inspect
-from file_renamer.themes.theme import Theme
-
-logger = logging.getLogger(__name__)
-
-
-class DarkLinux(Theme):
-
-    def __init__(self):
-        logger.info('class DarkLinux')
-        self.theme = """
 QWidget {
     background-color: #212529;
     color: white;
@@ -137,7 +125,3 @@ QMessageBox {
     background-color: #212529;
     color: #dce0e4;
 }
-"""
-
-    def validate(self, value):
-        pass
