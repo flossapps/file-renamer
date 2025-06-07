@@ -85,6 +85,14 @@ class Files(File):
         count = 0
         text = ""
         msg = "PLEASE WAIT..."
+        kwargs = {
+            "app": False,
+            "list": True,
+            "preview": False,
+            "renamed": False
+        }
+        self.label_style(**kwargs)
+        """
         if self.fr['theme'] == 'light':
             self.fr["ui"].label.setStyleSheet(
                 "color: white; background-color: gray;"
@@ -93,6 +101,7 @@ class Files(File):
             self.fr["ui"].label.setStyleSheet(
                 "color: white; background-color: black;"
             )
+        """
         self.fr["title"] = "LIST FILES"
         self.print_title(**fr)
         filter = self.fr["ui"].filter_txt.text()
@@ -205,10 +214,21 @@ class Files(File):
         text = ""
         file_exists = False
         file_conflict = False
+
+        kwargs = {
+            "app": False,
+            "list": False,
+            "preview": True,
+            "renamed": False
+        }
+        self.label_style(**kwargs)
+        """
         self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
         self.fr["ui"].label.setStyleSheet(
             "color: white; background-color: #0080ff;"
         )
+        """
+
         if self.fr["ui"].extension.isChecked():
             if file["name"] != file["new"] and file['new'] != "":
                 file["current"] = file["name"] + file["ext"]
@@ -303,10 +323,21 @@ class Files(File):
             self.fr["ui"].dir_output.append("")
         text = 'Total Files: ' + str(count)
         self.fr["ui"].dir_output.append(text)
+
+        kwargs = {
+            "app": False,
+            "list": False,
+            "preview": False,
+            "renamed": True
+        }
+        self.label_style(**kwargs)
+        """
         self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
         self.fr["ui"].label.setStyleSheet(
             "color: white; background-color: maroon;"
         )
+        """
+
         self.fr["ui"].rename_btn.setEnabled(False)
         self.filelist.clear()
         self.changed.clear()
@@ -345,22 +376,64 @@ class Files(File):
         self.label_style(**kwargs)
 
     def label_style(self, **kwargs):
-        if kwargs["error"]:
+        logger.info('kwargs: %s', kwargs)
+        logger.info('self.fr: %s', self.fr)
+        if kwargs["app"]:
+            self.fr["ui"].label.setText("APP")
+            if self.fr['platform'] == 'Windows':
+                if self.fr['theme'] == 'light':
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: white; background-color: gray;"
+                    )
+                else:
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: black; background-color: #9e9e9e;"
+                    )
+            else:
+                if self.fr['theme'] == 'light':
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: white; background-color: gray;"
+                    )
+                else:
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: black; background-color: #9e9e9e;"
+                    )
+        elif kwargs["list"]:
+            self.fr["ui"].label.setText("LIST FILES")
+            if self.fr['platform'] == 'Windows':
+                if self.fr['theme'] == 'light':
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: white; background-color: gray;"
+                    )
+                else:
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: black; background-color: #9e9e9e;"
+                    )
+            else:
+                if self.fr['theme'] == 'light':
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: white; background-color: gray;"
+                    )
+                else:
+                    self.fr["ui"].label.setStyleSheet(
+                        "color: black; background-color: #9e9e9e;"
+                    )
+        elif kwargs["preview"]:
+            self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: #0080ff;"
+            )
+        elif kwargs["renamed"]:
+            self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
+            self.fr["ui"].label.setStyleSheet(
+                "color: white; background-color: maroon;"
+            )
+        else:
             self.fr["ui"].label.setText("ERROR")
             self.fr["ui"].dir_output.setText(kwargs['msg'])
             self.fr["ui"].label.setStyleSheet(
                 "color: white; background-color: maroon;"
             )
-        else:
-            self.fr["ui"].label.setText("APP")
-            if self.fr['theme'] == 'light':
-                self.fr["ui"].label.setStyleSheet(
-                    "color: white; background-color: gray;"
-                )
-            elif self.fr['theme'] == 'dark':
-                self.fr["ui"].label.setStyleSheet(
-                    "color: white; background-color: black;"
-                )
 
     def writeable(self, path):
         random_num = str(randrange(1000, 1000000))
