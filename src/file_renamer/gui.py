@@ -219,15 +219,14 @@ stays on your desktop:<p>
     def set_theme(self):
         if self.fr["platform"] == "Windows":
             if self.fr['theme'] == 'light':
-                qss = ROOT_DIR + "/themes/light/light_windows.qss"
+                qss = ROOT_DIR + "/themes/windows_light.qss"
             elif self.fr['theme'] == 'dark':
-                qss = ROOT_DIR + "/themes/dark/dark_windows.qss"
+                qss = ROOT_DIR + "/themes/windows_dark.qss"
         else:
             if self.fr['theme'] == 'light':
-                qss = ROOT_DIR + "/themes/light/light_linux.qss"
+                qss = ROOT_DIR + "/themes/linux_light.qss"
             elif self.fr['theme'] == 'dark':
-                qss = ROOT_DIR +  "/themes/dark/dark_linux.qss"
-        # self.fr['app'].setStyleSheet(qss)
+                qss = ROOT_DIR + "/themes/linux_dark.qss"
         with open(Path(qss), "r") as f:
             style = f.read()
             self.fr['app'].setStyleSheet(style)

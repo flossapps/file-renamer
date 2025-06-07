@@ -85,14 +85,14 @@ def main(**fr):
     # Set theme
     if fr["platform"] == "Windows":
         if fr['theme'] == 'light':
-            qss = ROOT_DIR + "/themes/light/light_windows.qss"
+            qss = ROOT_DIR + "/themes/windows_light.qss"
         elif fr['theme'] == 'dark':
-            qss = ROOT_DIR + "/themes/dark/dark_windows.qss"
+            qss = ROOT_DIR + "/themes/windows_dark.qss"
     else:
         if fr['theme'] == 'light':
-            qss = ROOT_DIR + "/themes/light/light_linux.qss"
+            qss = ROOT_DIR + "/themes/linux_light.qss"
         elif fr['theme'] == 'dark':
-            qss = ROOT_DIR +  "/themes/dark/dark_linux.qss"
+            qss = ROOT_DIR + "/themes/linux_dark.qss"
     with open(Path(qss), "r") as f:
         style = f.read()
         app.setStyleSheet(style)
