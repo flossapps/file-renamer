@@ -65,9 +65,15 @@ def main(**fr):
         "html_body": "",
         "page-id": "app",
         "theme": 'light',
+        "error": True,
+        "msg-title": "ERROR",
+        "msg-body": "Error Found",
         "msg-type": "info",
-        "msg-title": "MESSAGE",
-        "msg-info": "Unknown"
+        "msg-info": "Unknown",
+        "start": False,
+        "list": False,
+        "preview": False,
+        "renamed": False
     }
 
     # File Renamer app

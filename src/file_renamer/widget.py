@@ -42,13 +42,18 @@ class Widget(QWidget):
             self.fr["ui"].dir_txt.setText(dir_name)
             self.fr["path"] = Path(dir_name)
             if self.files.writeable(dir_name) is False:
-                kwargs = {
-                    "error": True,
-                    "msg": "PATH NOT WRITEABLE"
-                }
-                self.files.clear(**kwargs)
+                self.fr["error"] = True
+                self.fr["msg-title"] = "ERROR"
+                self.fr["msg-body"] = "PATH NOT WRITEABLE"
+                self.files.clear(**self.fr)
+                self.files.label_style(**self.fr)
             else:
-                self.fr["ui"].label.setText('LIST FILES')
+                # self.fr["ui"].label.setText('LIST FILES')
+                self.fr["error"] = False
+                self.fr["start"] = False
+                self.fr["list"] = True
+                self.fr["preview"] = False
+                self.fr["renamed"] = False
                 if self.fr["ui"].sort.isChecked():
                     if len(self.rename.files.filelist) >= 2:
                         self.rename.sort_files(**self.fr)
@@ -165,12 +170,6 @@ class Widget(QWidget):
                     self.rename.remove_ids(**self.fr)
                 elif index == 10:
                     self.rename.number(**self.fr)
-
-    def clear(self):
-        kwargs = {
-            "error": False
-        }
-        self.files.clear(**kwargs)
 
     def rename_files(self):
         self.fr["title"] = ""

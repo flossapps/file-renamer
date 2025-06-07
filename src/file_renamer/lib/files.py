@@ -85,13 +85,7 @@ class Files(File):
         count = 0
         text = ""
         msg = "PLEASE WAIT..."
-        kwargs = {
-            "app": False,
-            "list": True,
-            "preview": False,
-            "renamed": False
-        }
-        self.label_style(**kwargs)
+        self.label_style(**self.fr)
         """
         if self.fr['theme'] == 'light':
             self.fr["ui"].label.setStyleSheet(
@@ -215,13 +209,12 @@ class Files(File):
         file_exists = False
         file_conflict = False
 
-        kwargs = {
-            "app": False,
-            "list": False,
-            "preview": True,
-            "renamed": False
-        }
-        self.label_style(**kwargs)
+        self.fr["error"] = False
+        self.fr["start"] = False
+        self.fr["list"] = False
+        self.fr["preview"] = True
+        self.fr["renamed"] = False
+        self.label_style(**self.fr)
         """
         self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
         self.fr["ui"].label.setStyleSheet(
@@ -324,13 +317,12 @@ class Files(File):
         text = 'Total Files: ' + str(count)
         self.fr["ui"].dir_output.append(text)
 
-        kwargs = {
-            "app": False,
-            "list": False,
-            "preview": False,
-            "renamed": True
-        }
-        self.label_style(**kwargs)
+        self.fr["error"] = False
+        self.fr["start"] = False
+        self.fr["list"] = False
+        self.fr["preview"] =  False
+        self.fr["renamed"] = True
+        self.label_style(**self.fr)
         """
         self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
         self.fr["ui"].label.setStyleSheet(
@@ -357,81 +349,87 @@ class Files(File):
             logger.info('data["count"] unknown')
 
     @Slot()
-    def clear(self, **kwargs):
+    def clear(self, **fr):
         self.filelist.clear()
         self.changed.clear()
-        self.fr["ui"].dir_output.clear()
-        self.fr["ui"].search.clear()
-        self.fr["ui"].replace.clear()
-        self.fr["ui"].rename_btn.setEnabled(False)
-        self.fr["ui"].filter_txt.setText('*.*')
-        self.fr["ui"].recursively.setChecked(False)
-        self.fr["ui"].extension.setChecked(False)
-        self.fr["ui"].id.setChecked(False)
-        self.fr["ui"].path.setChecked(False)
-        self.fr["ui"].regex.setChecked(False)
-        self.fr["ui"].sort.setChecked(False)
-        self.fr["ui"].comboBox.setCurrentIndex(0)
-        self.fr["ui"].comboBox.setCurrentText('Select')
-        self.label_style(**kwargs)
+        fr["ui"].dir_output.clear()
+        fr["ui"].search.clear()
+        fr["ui"].replace.clear()
+        fr["ui"].rename_btn.setEnabled(False)
+        fr["ui"].filter_txt.setText('*.*')
+        fr["ui"].recursively.setChecked(False)
+        fr["ui"].extension.setChecked(False)
+        fr["ui"].id.setChecked(False)
+        fr["ui"].path.setChecked(False)
+        fr["ui"].regex.setChecked(False)
+        fr["ui"].sort.setChecked(False)
+        fr["ui"].comboBox.setCurrentIndex(0)
+        fr["ui"].comboBox.setCurrentText('Select')
+        # self.label_style(**fr)
 
-    def label_style(self, **kwargs):
-        logger.info('kwargs: %s', kwargs)
-        logger.info('self.fr: %s', self.fr)
-        if kwargs["app"]:
-            self.fr["ui"].label.setText("APP")
-            if self.fr['platform'] == 'Windows':
-                if self.fr['theme'] == 'light':
-                    self.fr["ui"].label.setStyleSheet(
+    def label_style(self, **fr):
+        logger.info('fr: %s', fr)
+        # logger.info('self.fr: %s', self.fr)
+        if fr["error"]:
+            fr["ui"].label.setText(fr["msg-title"])
+            fr["ui"].dir_output.setText(fr["msg-body"])
+            fr["ui"].label.setStyleSheet(
+                "color: white; background-color: maroon;"
+            )
+        elif fr["start"]:
+            fr["ui"].label.setText("APP")
+            if fr['platform'] == 'Windows':
+                if fr['theme'] == 'light':
+                    fr["ui"].label.setStyleSheet(
                         "color: white; background-color: gray;"
                     )
                 else:
-                    self.fr["ui"].label.setStyleSheet(
+                    fr["ui"].label.setStyleSheet(
                         "color: black; background-color: #9e9e9e;"
                     )
             else:
-                if self.fr['theme'] == 'light':
-                    self.fr["ui"].label.setStyleSheet(
+                if fr['theme'] == 'light':
+                    fr["ui"].label.setStyleSheet(
                         "color: white; background-color: gray;"
                     )
                 else:
-                    self.fr["ui"].label.setStyleSheet(
+                    fr["ui"].label.setStyleSheet(
                         "color: black; background-color: #9e9e9e;"
                     )
-        elif kwargs["list"]:
-            self.fr["ui"].label.setText("LIST FILES")
-            if self.fr['platform'] == 'Windows':
-                if self.fr['theme'] == 'light':
-                    self.fr["ui"].label.setStyleSheet(
+        elif fr["list"]:
+            fr["ui"].label.setText("LIST FILES")
+            if fr['platform'] == 'Windows':
+                if fr['theme'] == 'light':
+                    fr["ui"].label.setStyleSheet(
                         "color: white; background-color: gray;"
                     )
                 else:
-                    self.fr["ui"].label.setStyleSheet(
+                    fr["ui"].label.setStyleSheet(
                         "color: black; background-color: #9e9e9e;"
                     )
             else:
-                if self.fr['theme'] == 'light':
-                    self.fr["ui"].label.setStyleSheet(
+                if fr['theme'] == 'light':
+                    fr["ui"].label.setStyleSheet(
                         "color: white; background-color: gray;"
                     )
                 else:
-                    self.fr["ui"].label.setStyleSheet(
+                    fr["ui"].label.setStyleSheet(
                         "color: black; background-color: #9e9e9e;"
                     )
-        elif kwargs["preview"]:
-            self.fr["ui"].label.setText('PREVIEW -> ' + self.fr["title"])
-            self.fr["ui"].label.setStyleSheet(
+        elif fr["preview"]:
+            fr["ui"].label.setText('PREVIEW -> ' + fr["title"])
+            fr["ui"].label.setStyleSheet(
                 "color: white; background-color: #0080ff;"
             )
-        elif kwargs["renamed"]:
-            self.fr["ui"].label.setText('RENAMED -> ' + self.fr["title"])
-            self.fr["ui"].label.setStyleSheet(
+        elif fr["renamed"]:
+            fr["ui"].label.setText('RENAMED -> ' + fr["title"])
+            fr["ui"].label.setStyleSheet(
                 "color: white; background-color: maroon;"
             )
         else:
-            self.fr["ui"].label.setText("ERROR")
-            self.fr["ui"].dir_output.setText(kwargs['msg'])
-            self.fr["ui"].label.setStyleSheet(
+            fr["ui"].label.setText("UNKOWN")
+            fr["ui"].dir_output.setText("UNKOWN")
+            fr["ui"].label.setStyleSheet(
                 "color: white; background-color: maroon;"
             )
 
