@@ -171,6 +171,12 @@ class Widget(QWidget):
                 elif index == 10:
                     self.rename.number(**self.fr)
 
+    def clear(self):
+        self.fr["start"] = True
+        self.files.clear(**self.fr)
+        self.files.label_style(**self.fr)
+
+
     def rename_files(self):
         self.fr["title"] = ""
         index = self.fr["ui"].comboBox.currentIndex()
