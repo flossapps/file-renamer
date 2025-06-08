@@ -363,7 +363,7 @@ stays on your desktop:<p>
     @Slot()
     def show_xonsh(self):
         title = "XONSH"
-        version = "0.19.1"
+        version = "0.19.3"
         body = """
         <div class="container">
             <h1>XONSH """ + version + """</h1>
@@ -381,7 +381,7 @@ stays on your desktop:<p>
     @Slot()
     def show_nuitka(self):
         title = "Nuitka"
-        version = "2.6.7"
+        version = "2.7.6"
         body = """
         <div class="container">
             <h1>Nuitka """ + version + """</h1>
