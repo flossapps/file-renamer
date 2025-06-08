@@ -44,7 +44,7 @@ class Widget(QWidget):
             if self.files.writeable(dir_name) is False:
                 self.fr["error"] = True
                 self.fr["msg-title"] = "ERROR"
-                self.fr["msg-body"] = "PATH NOT WRITEABLE"
+                self.fr["msg-body"] = "PERMISSION DENIED: " + dir_name
                 self.files.clear(**self.fr)
                 self.files.label_style(**self.fr)
             else:
